@@ -39,6 +39,10 @@ from traitlets.config import SingletonConfigurable
 
 from ..utils import url_path_join
 
+import logging
+
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.setLevel(logging.DEBUG)
 
 class _ExpiringDict(dict):
     """Dict-like cache for Hub API requests
@@ -307,13 +311,13 @@ class HubAuth(SingletonConfigurable):
             try:
                 return self.cache[cache_key]
             except KeyError:
-                app_log.debug("HubAuth cache miss: %s", cache_key)
+                _LOGGER.debug("HubAuth cache miss: %s", cache_key)
 
         data = self._api_request('GET', url, allow_404=True)
         if data is None:
-            app_log.warning("No Hub user identified for request")
+            _LOGGER.warning("No Hub user identified for request")
         else:
-            app_log.debug("Received request from Hub user %s", data)
+            _LOGGER.debug("Received request from Hub user %s", data)
         if use_cache:
             # cache result
             self.cache[cache_key] = data

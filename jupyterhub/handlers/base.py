@@ -48,6 +48,11 @@ from ..utils import get_accepted_mimetype
 from ..utils import maybe_future
 from ..utils import url_path_join
 
+
+import logging
+
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.setLevel(logging.DEBUG)
 # pattern for the authentication token header
 auth_header_pat = re.compile(r'^(?:token|bearer)\s+([^\s]+)$', flags=re.IGNORECASE)
 
@@ -385,16 +390,18 @@ class BaseHandler(RequestHandler):
         def clear():
             self.clear_cookie(cookie_name, path=self.hub.base_url)
 
+        _LOGGER.debug("JH VALUES: cookie_name=%s cookie_value=%s cookie_id=%s" % (cookie_name, cookie_value, cookie_id))
         if cookie_id is None:
             if self.get_cookie(cookie_name):
-                self.log.warning("Invalid or expired cookie token")
+                _LOGGER.warning("Invalid or expired cookie token")
                 clear()
             return
         cookie_id = cookie_id.decode('utf8', 'replace')
+        _LOGGER.debug(self.db.query(orm.User))
         u = self.db.query(orm.User).filter(orm.User.cookie_id == cookie_id).first()
         user = self._user_from_orm(u)
         if user is None:
-            self.log.warning("Invalid cookie token")
+            _LOGGER.warning("Invalid cookie token")
             # have cookie, but it's not valid. Clear it and start over.
             clear()
             return
