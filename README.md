@@ -6,6 +6,20 @@
 **[License](#license)** |
 **[Help and Resources](#help-and-resources)**
 
+---
+
+Please note that this repository is participating in a study into sustainability
+of open source projects. Data will be gathered about this repository for
+approximately the next 12 months, starting from 2021-06-11.
+
+Data collected will include number of contributors, number of PRs, time taken to
+close/merge these PRs, and issues closed.
+
+For more information, please visit
+[our informational page](https://sustainable-open-science-and-software.github.io/) or download our [participant information sheet](https://sustainable-open-science-and-software.github.io/assets/PIS_sustainable_software.pdf).
+
+---
+
 # [JupyterHub](https://github.com/jupyterhub/jupyterhub)
 
 [![Latest PyPI version](https://img.shields.io/pypi/v/jupyterhub?logo=pypi)](https://pypi.python.org/pypi/jupyterhub)
@@ -201,7 +215,7 @@ These accounts will be used for authentication in JupyterHub's default configura
 ## Contributing
 
 If you would like to contribute to the project, please read our
-[contributor documentation](http://jupyter.readthedocs.io/en/latest/contributor/content-contributor.html)
+[contributor documentation](https://jupyter.readthedocs.io/en/latest/contributing/content-contributor.html)
 and the [`CONTRIBUTING.md`](CONTRIBUTING.md). The `CONTRIBUTING.md` file
 explains how to set up a development installation, how to run the test suite,
 and how to contribute to documentation.
