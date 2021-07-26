@@ -17,12 +17,24 @@ require(["jquery", "jhapi", "moment"], function ($, JHAPI, moment) {
 
   $("#request-token-form").submit(function () {
     var note = $("#token-note").val();
+    var expires_in = $("#token-expiry").val();
+    if (!expires_in.length) {
+      expires_in = null
+    }
+    else {
+      expires_in = -moment().diff(moment(expires_in, 'MM.DD.YYYY'), 'seconds');
+    }
+    if (expires_in < 0 || isNaN(expires_in)) {
+      $("#expiry-warning").text("Invalid expiration date entered");
+      $("#token-expiry").css("border-color", "#ff0000");
+      return false;
+    }
     if (!note.length) {
       note = "Requested via token page";
     }
     api.request_token(
       user,
-      { note: note },
+      { note: note, expires_in: expires_in },
       {
         success: function (reply) {
           $("#token-result").text(reply.token);

@@ -20,6 +20,18 @@
           This note will help you keep track of what your tokens are for.
         </small>
       </div>
+      <div class="form-group">
+        <label for="token-expiry">Expiry</label>
+        <p id="expiry-warning"></p>
+        <input 
+          id="token-expiry" 
+          class="form-control" 
+          placeholder="expiry date of your token in MM.DD.YYYY">
+        <small id="expiry-note" class="form-text text-muted">
+              The token will expire at the date specified in MM.DD.YYYY. 
+              Leave the field empty for infinite duration.
+        </small>
+      </div>
     </form>
   </div>
 
@@ -56,6 +68,7 @@
           <td>Note</td>
           <td>Last used</td>
           <td>Created</td>
+          <td>Expires</td>
         </tr>
       </thead>
       <tbody>
@@ -73,6 +86,13 @@
           <td class="time-col col-sm-3">
             {%- if token.created -%}
             {{ token.created.isoformat() + 'Z' }}
+            {%- else -%}
+            N/A
+            {%- endif -%}
+          </td>
+          <td class="time-col col-sm-3">
+            {%- if token.expires_at -%}
+            {{ token.expires_at.isoformat() + 'Z' }}
             {%- else -%}
             N/A
             {%- endif -%}
